@@ -58,6 +58,6 @@ public class Main {
         }
     }
     public static void main(String[] args) {
-        FileHandler.readFile();
+        System.out.println(WordCounter.countWords());
     }
 }
