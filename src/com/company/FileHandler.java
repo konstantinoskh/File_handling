@@ -1,8 +1,7 @@
 package com.company;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class FileHandler {
@@ -12,14 +11,15 @@ public class FileHandler {
         Scanner sc = new Scanner(System.in);
         System.out.print("Input file name: ");
         String fileName = sc.nextLine();
+        sc.close();
 
-        try {
-            FileReader fr = new FileReader(fileName);
-            BufferedReader br = new BufferedReader(fr);
+        try(BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line = br.readLine();
 
             while(line != null){
-                words.add(line);
+                String[] array = line.split(" ");
+
+                words.addAll(Arrays.asList(array));
                 line = br.readLine();
             }
         }catch (IOException exception){
@@ -27,5 +27,14 @@ public class FileHandler {
             System.out.println("File not found, check the name of the file and ensure you have inputted the right extension of the file name");
         }
         return words;
+    }
+    public static void newFile(ArrayList<String> text){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter file name: ");
+        String filename = sc.nextLine();
+
+        try (PrintWriter fw = new PrintWriter(new FileWriter(filename))) {
+            fw.println(text);
+        }
     }
 }
